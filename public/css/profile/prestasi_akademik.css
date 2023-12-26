@@ -1,0 +1,56 @@
+/* jumbotron */
+.jumbotron {
+  background-image: url("../../img/berita_acara/berita_acara_jumbotron.jpg");
+  background-size: cover;
+  height: 400px;
+  background-attachment: fixed;
+  margin-top: -60px;
+}
+
+/* konten */
+.foto-prestasi {
+  width: 90%;
+  height: 300px;
+  margin-bottom: 50px;
+}
+
+/* UTILITY */
+.garis-bawah {
+  display: block;
+  height: 5px;
+  width: 100px;
+  background-color: #2c73d2;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.judul-konten {
+  font-weight: 600;
+  text-decoration: underline;
+  color: #333333;
+}
+.isi-konten p {
+  color: #333333;
+}
+
+/* DESKTOP VERSION */
+@media (min-width: 992px) {
+  body {
+    background-color: #bbb;
+  }
+  .wrap {
+    width: 992px;
+    box-sizing: border-box;
+    margin: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-color: #eee;
+  }
+  .konten {
+    background-color: white;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+    margin-top: -70px;
+    border-top-right-radius: 20px;
+    box-sizing: border-box;
+  }
+}

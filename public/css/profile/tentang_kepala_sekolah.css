@@ -1,0 +1,80 @@
+/* jumbotron */
+.jumbotron {
+  background-image: url("../../img/berita_acara/berita_acara_jumbotron.jpg");
+  background-size: cover;
+  height: 400px;
+  background-attachment: fixed;
+  margin-top: -60px;
+}
+
+/* konten */
+.judul {
+  font-family: "patrick hand";
+}
+.profile-kepala-sekolah img {
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  margin-bottom: 15px;
+  border: 10px solid #eee;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.foto-kepala-sekolah {
+  text-align: center;
+}
+.profile-kepala-sekolah {
+  margin-bottom: 20px;
+}
+.terbit-foto {
+  margin-bottom: 20px;
+}
+a.judul {
+  text-decoration: none;
+  color: black;
+}
+
+/* UTILITY */
+.tebal {
+  font-weight: 500;
+  display: inline-block;
+}
+.tebal-tulis {
+  font-weight: 500;
+  display: inline-block;
+  font-style: italic;
+}
+.garis-bawah {
+  display: block;
+  height: 5px;
+  width: 100px;
+  background-color: #2c73d2;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* DESKTOP VERSION */
+@media (min-width: 992px) {
+  body {
+    background-color: #bbb;
+  }
+  .wrap {
+    width: 992px;
+    box-sizing: border-box;
+    margin: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-color: #eee;
+  }
+  .konten {
+    background-color: white;
+    padding: 30px;
+    box-sizing: border-box;
+    margin-top: -70px;
+    border-top-right-radius: 20px;
+  }
+  .profile-kepala-sekolah {
+    margin-bottom: 20px;
+  }
+  .foto-kepala-sekolah {
+    text-align: left;
+  }
+}

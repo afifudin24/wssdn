@@ -1,0 +1,271 @@
+/* slider */
+.slider {
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.slider::after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 1)
+  );
+}
+.faded-1 {
+  animation: fadein infinite;
+  animation-duration: 7s;
+}
+.faded-2 {
+  animation: fadeout infinite;
+  animation-duration: 7s;
+  margin-top: -70vh;
+}
+
+.slider img {
+  width: 100%;
+  height: 70vh;
+}
+.tulisan {
+  position: absolute;
+  z-index: 4;
+  color: white;
+  top: 100px;
+  margin-left: 20%;
+}
+.garis {
+  border-left: 5px solid #00bf7a;
+  padding-left: 35px;
+}
+.tulisan h1 {
+  font-size: 60px;
+}
+.tulisan p {
+  font-size: 20px;
+}
+
+/* welcome */
+.welcome span {
+  display: inline-block;
+  background-color: #00bf7a;
+  width: 300px;
+  height: 3px;
+  border-radius: 10px;
+}
+.welcome h1 {
+  margin-top: 50px;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+.welcome p {
+  font-weight: 200;
+  font-size: 20px;
+}
+
+/* visi misi */
+.container.visi-misi .row:nth-child(2) {
+  margin-top: 100px;
+  padding-bottom: 40px;
+}
+.container .visi p {
+  font-weight: 500;
+  font-size: 40px;
+}
+.container .misi p {
+  color: #5c616f;
+  font-weight: 200;
+}
+.row .misi a.lengkap {
+  color: #00a065;
+}
+.row .misi a.lengkap:hover {
+  color: #00bf7a;
+}
+
+/* berita & acara */
+.konten .container .row:nth-child(1) h1 {
+  font-size: 18px;
+  font-weight: 300;
+}
+.konten .container .row:nth-child(2) {
+  margin-bottom: 20px;
+}
+.konten .container .row:nth-child(2) h1 {
+  font-weight: 400;
+}
+.konten .container.portal-berita .row:nth-child(2) {
+  display: flex;
+  justify-content: end;
+}
+.portal-berita .card {
+  padding: 0 40px;
+}
+.konten {
+  background-color: #eee;
+  padding-top: 100px;
+}
+.berita {
+  float: left;
+}
+.konten .lengkap {
+  color: #00a065;
+}
+
+/* gambar pembatas */
+.gambar-pembatas {
+  background-image: url("../img/gambar-pembatas.jpg");
+  background-size: cover;
+  height: 50vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gambar-pembatas h1 {
+  font-size: 40px;
+  text-shadow: 0 5px 10px rgba(0, 0, 0, 1);
+}
+
+/* footer */
+.footer-first {
+  background-color: #2c73d2;
+  color: white;
+  padding: 40px 0;
+}
+
+/* UTILITY */
+.judul {
+  font-weight: 200;
+  color: #2c73d2;
+  font-style: italic;
+}
+.lengkap:hover {
+  color: #00c27b;
+  text-decoration: none;
+}
+.header-berita {
+  font-family: "Patrick Hand", cursive;
+  font-size: 20px;
+}
+.portal-berita-besar {
+  padding: 0 40px;
+  background-color: #888;
+  color: white;
+  transition: 0.2s;
+}
+.portal-berita-besar:hover {
+  padding: 0 40px;
+  transform: scale(1.01);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-color: white;
+  color: #888;
+}
+.header-berita-besar {
+  display: flex;
+  justify-content: space-between;
+}
+.berita-kecil {
+  padding: 0 20px;
+  transition: 0.2s;
+}
+.garis-bawah-berita span {
+  display: block;
+  height: 5px;
+  width: 100px;
+  background-color: #2c73d2;
+}
+.card.berita-kecil:hover {
+  background-color: #2c73d2;
+  color: white;
+  transition: 0.2s;
+}
+.konten .container {
+  padding-bottom: 100px;
+}
+.container a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* keyframe slider */
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media (min-width: 992px) {
+  body {
+    background-color: #bbb;
+  }
+  .wrap {
+    width: 992px;
+    box-sizing: border-box;
+    margin: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+  }
+  .slider {
+    height: 70vh;
+  }
+  .tulisan {
+    margin-top: 20vh;
+  }
+  .welcome h1 {
+    font-size: 50px;
+    font-weight: 500;
+  }
+  .welcome p {
+    font-weight: 200;
+    font-size: 20px;
+  }
+  .berita {
+    float: right;
+  }
+  .gambar-pembatas h1 {
+    font-size: 100px;
+  }
+  .footer-first .col-lg-8 {
+    border-left: 2px solid white;
+  }
+}
