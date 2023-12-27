@@ -33,9 +33,8 @@
                 Data
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownData">
-                <a class="dropdown-item" href="http://localhost/search_ajaxfin/index">Data Siswa</a>
-                <a class="dropdown-item" href="http://localhost/SDNEGERI5MENTENG/datasiswa-master/Pendaftarguru">Data
-                    Guru</a>
+                <a class="dropdown-item" href="<?= BASEURL ?>/dataSiswa/index">Data Siswa</a>
+                <a class="dropdown-item" href="<?= BASEURL ?>/dataGuru/index">Data Guru</a>
             </div>
         </li>
         </li>
@@ -60,7 +59,7 @@
         </li>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost/SDNEGERI5MENTENG/login_role_php/">Login</a>
+                <a class="nav-link" href="<?= BASEURL ?>/auth/login">Login</a>
             </li>
         </ul>
 </div>

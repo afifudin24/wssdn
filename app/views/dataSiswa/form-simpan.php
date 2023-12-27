@@ -6,7 +6,7 @@
 
 <body>
     <h1>Tambah Data Siswa</h1>
-    <form method="post" action="proses_simpan.php" enctype="multipart/form-data">
+    <form method="POST" action="" enctype="multipart/form-data">
         <table cellpadding="8">
             <tr>
                 <td>ID</td>

@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <!-- my css -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/font-family.css">
+    <link rel="stylesheet" href="<?= BASEURL ?>/css/style.css">
+    <link rel="stylesheet" href="<?= BASEURL ?>/css/navbar.css">
+    <link rel="stylesheet" href="<?= BASEURL ?>/css/font-family.css">
 
     <title><?php echo $data['judul']; ?></title>
 </head>

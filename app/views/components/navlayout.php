@@ -45,7 +45,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownData">
                         <a class="dropdown-item" href="<?= BASEURL ?>/dataSiswa/index">Data Siswa</a>
-                        <a class="dropdown-item" href="http://localhost/search_ajaxyaya/index.php">Data Guru</a>
+                        <a class="dropdown-item" href="<?= BASEURL ?>/dataGuru/index">Data Guru</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -72,8 +72,7 @@
             <!-- Add this login button -->
             </li>
             <li class="nav-item">
-                <a class="nav-link"
-                    href="http://localhost/Joki/SDNEGERI5MENTENG/SDNEGERI5MENTENG/login_role_php/">login</a>
+                <a class="nav-link" href="<?= BASEURL ?>/auth/login">Login</a>
             </li>
         </div>
     </nav>
