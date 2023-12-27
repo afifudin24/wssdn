@@ -8,6 +8,8 @@
     <title>Data Siswa</title>
     <!-- Load File bootstrap.min.css yang ada difolder css -->
     <link href="<?= BASEURL ?>/data/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -21,7 +23,7 @@
     </style>
 </head>
 
-<body>
+<body >
     <!-- Membuat Menu Header / Navbar -->
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
@@ -33,8 +35,23 @@
             </p>
         </div>
     </nav>
+
+    <?php if (Flasher::check()) : ?>
+            <?php $flash = Flasher::flash() ?>
+            <div class="alert alert-<?= $flash['tipe'] ?> alert-dismissible  show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <?= $flash['pesan'] ?>
+            </div>
+        <?php endif; ?>
+    </div>
+   
     <div style="padding: 0 15px;">
-        <a href="<?= BASEURL ?>/dataSiswa/form-simpan">Tambah Data</a><br><br>
+    <input type="hidden" id="baseURL" value="<?= BASEURL ?>">
+
+        <a class="btn btn-success" href="<?= BASEURL ?>/dataSiswa/form-simpan">Tambah Siswa</a><br><br>
 
         <!-- Buat sebuah div dengan class row -->
         <div class="row">
@@ -53,8 +70,8 @@
         </div>
         <br>
         <!-- Buat sebuah div dengan id="view" yang digunakan untuk menampung data yang ada pada tabel siswa di database -->
-        <div class="table-responsive">
-            <table class="table table-bordered">
+        <div class="table-responsive col-10-12 ">
+            <table class="table table-bordered mr-5 ml-5">
                 <tr>
                     <th class="text-center">NO</th>
                     <th class="text-center">FOTO</th>
@@ -72,16 +89,17 @@
                 <tr>
                     <td class="align-middle text-center"><?php echo $no; ?></td>
                     <td class="align-middle text-center">
-                        <img src="foto/<?php echo $data['foto']; ?>" width="80" height="80">
+                        <img src=" <?= BASEURL . "/img/" . $data['foto'] ?>" width="80" height="80">
+                       
                     </td>
                     <td class="align-middle"><?php echo $data['nis']; ?></td>
                     <td class="align-middle"><?php echo $data['nama']; ?></td>
                     <td class="align-middle"><?php echo $data['jenis_kelamin']; ?></td>
                     <td class="align-middle"><?php echo $data['telp']; ?></td>
                     <td class="align-middle"><?php echo $data['alamat']; ?></td>
-                    <td class="align-middle">
-                        <a href="<?= BASEURL ?>/dataSiswa/form-ubah/<?= $data['id'] ?>">Ubah</a><br>
-                        <a href="<?= BASEURL ?>/dataSiswa/proses_hapus/<?= $data['id'] ?>">Hapus</a>
+                    <td class="align-middle align-center text-center d-flex justify-content-center text-align-center">
+                        <a class="btn btn-success mb-5 mr-5" href="<?= BASEURL ?>/dataSiswa/form-ubah/<?= $data['id'] ?>">Ubah</a>
+                        <a href="#" class="btn btn-danger delete-button" data-id="<?= $data['id'] ?>">Hapus</a>
 
                     </td>
                 </tr>
@@ -92,16 +110,97 @@
             </table>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
+    <script src="<?= BASEURL ?>/data/js/jquery.min.js"></script> 
+    <script>
+        
+  const baseURL = document.getElementById('baseURL').value;
+// Gunakan baseURL seperti yang Anda butuhkan dalam skrip JavaScript
+
+  $('#keyword').on('input', function() {
+    let keyword = $(this).val().trim();
+    
+    // Kirim permintaan Ajax ke server
+    $.ajax({
+        type: 'POST',
+        url: baseURL + "/datasiswa/carisiswa", // Ganti dengan URL endpoint di server Anda
+        data: { keyword: keyword },
+        success: function(response) {
+            console.log(response);
+            // Ubah tabel dengan data yang diterima dari server
+            updateTable(response);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+
+
+// Fungsi untuk memperbarui tabel dengan hasil pencarian
+function updateTable(data) {
+    // Ubah isi tabel dengan data yang diterima
+    // Misalnya, jika responsenya adalah baris-baris tabel, Anda bisa menggunakan kode seperti ini:
+    $('#dataTable tbody').html(data);
+}
+  });
+
+    </script>
+
     <!-- Load File jquery.min.js yang ada di folder js -->
-    <script src="<?= BASEURL ?>/data/js/jquery.min.js"></script>
-    <!-- Load File bootstrap.min.js yang ada di folder js -->
     <script src="<?= BASEURL ?>/data/js/bootstrap.min.js"></script>
     <!-- Load file ajax.js yang ada di folder js -->
-    <script src="<?= BASEURL ?>/data/js/ajax.js"></script>
+   
+   
+    <!-- Load File bootstrap.min.js yang ada di folder js -->
+    <script>
+    $(document).ready(function () {
+        // Event listener saat tombol hapus di-klik
+        $('.delete-button').click(function () {
+            // Ambil ID dari data yang akan dihapus dari data-id atribut
+            const id = $(this).data('id');
+
+            // Tambahkan ID ke URL aksi hapus pada modal
+            const modal = $('#confirmDeleteModal');
+            modal.find('#confirmDeleteButton').attr('data-href', '<?= BASEURL ?>/dataSiswa/hapus_data/' + id);
+            modal.modal('show');
+        });
+
+        // Event listener saat tombol konfirmasi hapus di-klik dalam modal
+        $('#confirmDeleteButton').click(function () {
+            // Ambil URL aksi hapus dari data-href atribut pada tombol
+            const deleteUrl = $(this).attr('data-href');
+
+            // Lakukan aksi hapus dengan pergi ke URL aksi hapus
+            window.location.href = deleteUrl;
+        });
+    });
+</script>
+   
 </body>
 
 </html>
-
+<!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Hapus</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus data ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <!-- Tombol untuk mengkonfirmasi hapus -->
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -178,4 +277,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

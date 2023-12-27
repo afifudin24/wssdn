@@ -30,11 +30,29 @@ class DataSiswa extends Controller {
         // $this->view('footer');
     }
 
+    public function cariSiswa()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : null;
+        var_dump($keyword);
+        
+
+        // Lakukan pencarian siswa berdasarkan keyword
+        $results = $this->siswaModel->cariSiswaByKeyword($keyword);
+
+        // Set header untuk menandakan bahwa respons adalah JSON
+        header('Content-Type: application/json');
+
+        // Kirim hasil pencarian sebagai respons JSON
+        echo json_encode($results);
+        exit; // Pastikan untuk menghentikan eksekusi setelah mengirim respons
+    }
+}
+
+
     public function form_simpan()
     {
-        // if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-        //     header('Location: ' . BASEURL . '/dataSiswa/index');
-        // }
+      
 
         $this->siswaModel->tambahSiswa($_POST);
         Flasher::setFlash('Buku berhasil ditambahkan', 'success');
@@ -42,13 +60,37 @@ class DataSiswa extends Controller {
         $this->view('dataSiswa/form-simpan');
     }
 
-    public function form_ubah($id = 0)
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->siswaModel->formUbah($id, $_POST);
+    public function tambahSiswa(){
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            header('Location: ' . BASEURL . '/datasiswa/');
+        }
+
+        $this->siswaModel->tambahSiswa($_POST);
+        Flasher::setFlash('Berhasil menambahkan siswa', 'success');
+        header('Location: ' . BASEURL . '/datasiswa');
+    }
+    public function updatesiswa($id = 0){
+       
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            header('Location: ' . BASEURL . '/datasiswa/');
+        } else if
+        ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          var_dump($id);
+          var_dump($_POST);
+         
+            $this->siswaModel->updateSiswa($id, $_POST);
             Flasher::setFlash('Siswa berhasil diubah', 'success');
             header('Location: ' . BASEURL . '/dataSiswa/index');
         }
+        // $this->siswaModel->tambahSiswa($_POST);
+        // Flasher::setFlash('Berhasil menambahkan siswa', 'success');
+        // header('Location: ' . BASEURL . '/datasiswa');
+    }
+
+
+    public function form_ubah($id = 0)
+    {
+       
 
         if ($id) {
             $data['siswa'] = $this->siswaModel->getDetailSiswa($id);
@@ -62,8 +104,10 @@ class DataSiswa extends Controller {
 
     public function hapus_data($id = 0)
     {
+        
         if ($id) {
             $hapus = $this->siswaModel->hapusSiswa($id);
+            
             if ($hapus == 0) {
                 Flasher::setFlash('Buku tidak ditemukan', 'danger');
                 header('Location: ' . BASEURL . '/dataSiswa/index');

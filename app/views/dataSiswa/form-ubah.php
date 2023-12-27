@@ -9,11 +9,11 @@
 
 <body>
     <h2>Form Ubah Siswa</h2>
-    <form action="" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $data['siswa']['id']; ?>">
+    <form action="<?= BASEURL ?>/datasiswa/updatesiswa/<?= $data['siswa']['id'] ?>" method="post" enctype="multipart/form-data">
+        <input type="text" name="id" value="<?php echo $data['siswa']['id']; ?>">
         <table>
             <tr>
-                <td>NIP</td>
+                <td>NIS</td>
                 <td><input type="text" name="nis" value="<?php echo $data['siswa']['nis']; ?>"></td>
             </tr>
             <tr>
@@ -50,7 +50,7 @@
             </tr>
         </table>
         <hr>
-        <input type="submit" value="Ubah">
+       <button type="submit" name="submit">Ubah Data</button>
         <a href="<?= BASEURL ?>/dataSiswa/index"><input type="button" value="Batal"></a>
     </form>
 </body>

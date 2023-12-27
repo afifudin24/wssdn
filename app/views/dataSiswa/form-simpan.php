@@ -6,12 +6,12 @@
 
 <body>
     <h1>Tambah Data Siswa</h1>
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="<?= BASEURL ?>/datasiswa/tambahsiswa" enctype="multipart/form-data">
         <table cellpadding="8">
-            <tr>
+            <!-- <tr>
                 <td>ID</td>
                 <td><input type="text" name="id"></td>
-            </tr>
+            </tr> -->
             <tr>
                 <td>NIS</td>
                 <td><input type="text" name="nis"></td>
@@ -41,7 +41,7 @@
             </tr>
         </table>
         <hr>
-        <input type="submit" value="Simpan">
+        <button type="submit" name="submit">Simpan</button>
         <a href="index.php"><input type="button" value="Batal"></a>
     </form>
 </body>
