@@ -12,13 +12,28 @@ class Database {
     public function __construct()
     {
         // data source name
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
+        // $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
+        // $this->dbh = new PDO($dsn, $user, $pass);
+        // $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
 
+        // $option = [
+        //     PDO::ATTR_PERSISTENT => true,
+        //     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        // ];
+
+        // try {
+        //     $this->dbh = new PDO($dsn, $this->user, $this->pass, $option);
+        // } catch(PDOException $e) {
+        //     die($e->getMessage());
+        // }
+        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
+    
         $option = [
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ];
-
+    
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $option);
         } catch(PDOException $e) {
@@ -77,6 +92,10 @@ class Database {
     public function numRows()
     {
         return $this->stmt->fetchColumn();
+    }
+    public function prepare($query) {
+        // Menyiapkan pernyataan SQL
+        $this->stmt = $this->dbh->prepare($query);
     }
 
 
