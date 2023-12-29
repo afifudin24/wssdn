@@ -1,6 +1,6 @@
 <?php 
 
-define('BASEURL', 'http://localhost/wssdn5genteng/public');
+define('BASEURL', 'http://localhost/wssdn/public');
 define('APP_NAME', 'WEB SEKOLAH');
 
 // DB

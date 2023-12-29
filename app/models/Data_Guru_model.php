@@ -34,41 +34,142 @@ class Data_Guru_model {
         return $this->db->single();
     }
 
-    public function tambahDataGuru($data) {
-        $nama_data_guru = htmlspecialchars($data['nama_data_guru']);
-
-        $sql = "INSERT INTO data_guru VALUES
-        (null, :nama_data_guru)";
-        $this->db->query($sql);
-        $this->db->bind('nama_data_guru', $nama_data_guru);
-        $this->db->execute();
+    public function getDetailGuru($id) {
+        $this->db->query("SELECT * FROM data_guru
+        WHERE data_guru.id = '$id'");
+        return $this->db->single();
     }
 
-    public function updateDataGuru($id, $data) {
-        $nama_data_guru = htmlspecialchars($data['nama_data_guru']);
-
-        $sql = "UPDATE data_guru SET
-                nama_data_guru = :nama_data_guru
-                WHERE id_data_guru = :id";
+    public function tambahGuru($data) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Misalnya, kita cek apakah 'nis' sebagai patokan jumlah data yang dikirimkan
+            // $jumlahData = count($data['nama']);
+    
+            $query = "INSERT INTO data_guru VALUES (null,  :nama, :foto, :alamat, :jenis_kelamin, :agama, :lulusan)";
+            $this->db->query($query);
         
+            // Prepare statement
+            $this->db->prepare($query);
+            $rowCount = 0;
+    
+            // for ($i = 0; $i < $jumlahData; $i++) {
+                
+            // }
+            // Flasher::setFlash('Berhasil menambahkan ' . $jumlahData . ' Guru', 'success');
+            $nama_Guru = isset($data['nama']) ? htmlspecialchars($data['nama']) : '';
+                $alamat = isset($data['alamat']) ? htmlspecialchars($data['alamat']) : '';
+                $jenis_kelamin = isset($data['jenis_kelamin']) ? htmlspecialchars($data['jenis_kelamin']) : '';
+                $agama = isset($data['agama']) ? htmlspecialchars($data['agama']) : '';
+                $lulusan = isset($data['lulusan']) ? htmlspecialchars($data['lulusan']) : '';
+                
+                // Proses upload foto jika berkas diunggah
+                $foto = 'default.png'; // Atur default jika tidak ada foto yang diunggah
+                if (isset($_FILES['foto']['name']) && $_FILES['foto']['error'] == UPLOAD_ERR_OK) {
+                    $foto = $_FILES['foto']['name'];
+                    move_uploaded_file($_FILES['foto']['tmp_name'], "img/".$foto);
+                }
+    
+                // Binding parameter pada prepared statement
+                $this->db->bind(':nama', $nama_Guru);
+                $this->db->bind(':foto', $foto);
+                $this->db->bind(':alamat', $alamat);
+                $this->db->bind(':jenis_kelamin', $jenis_kelamin);
+                $this->db->bind(':agama', $agama);
+                $this->db->bind(':lulusan', $lulusan);
+    
+                try {
+                    // Eksekusi query
+                    $this->db->execute();
+                        $rowCount ++; // Tambahkan jumlah baris yang berhasil di-insert
+                    
+                } catch (\PDOException $e) {
+                    if ($e->errorInfo[1] == 1062) {
+                        return 0;
+                        die;
+                    }
+                    // Tangani pesan kesalahan lain jika diperlukan
+                    echo "Error: " . $e->getMessage();
+                }
+            return $rowCount;
+            
+        }
+    }
+
+    public function updateGuru($id, $data) {
+        $nama = htmlspecialchars($data['nama']);
+        $alamat = htmlspecialchars($data['alamat']);
+        $jenis_kelamin = htmlspecialchars($data['jenis_kelamin']);
+        $agama = htmlspecialchars($data['agama']);
+        $lulusan = htmlspecialchars($data['lulusan']);
+    
+        // Check if a new photo is uploaded
+        if (!empty($_FILES['foto']['name'])) {
+            // Process and upload the new photo
+            $foto = $_FILES['foto']['name'];
+            $ukuranFile = $_FILES['foto']['size'];
+            $error = $_FILES['foto']['error'];
+            $tmp_name = $_FILES['foto']['tmp_name'];
+            move_uploaded_file($tmp_name, "img/".$foto);
+        } else {
+            // No new photo uploaded, retain the existing photo
+            $foto = $data['guru']['foto'];
+        }
+    
+        // Update data, including the new or existing photo
+        $sql = "UPDATE data_guru SET
+                nama = :nama,
+                alamat = :alamat,
+                jenis_kelamin = :jenis_kelamin,
+                agama = :agama,
+                lulusan = :lulusan,
+                foto = :foto
+                WHERE id = :id";
+    
         $this->db->query($sql);
-        $this->db->bind('nama_data_guru', $nama_data_guru);
+        $this->db->bind('nama', $nama);
+        $this->db->bind('alamat', $alamat);
+        $this->db->bind('jenis_kelamin', $jenis_kelamin);
+        $this->db->bind('agama', $agama);
+        $this->db->bind('lulusan', $lulusan);
+        $this->db->bind('foto', $foto);
+        $this->db->bind('id', $id);
+    
+        try {
+            $this->db->execute();
+            // If executed successfully without error, respond with 'OK'
+            echo "OK";
+        } catch (\PDOException $e) {
+            // Handle possible errors
+            if ($e->errorInfo[1] == 1062) {
+                // Duplicate key error (if any)
+                echo "Duplikat kunci";
+                die;
+            } else {
+                // Other errors
+                echo "Terjadi kesalahan: " . $e->getMessage();
+                die;
+            }
+        }
+    }
+    
+    public function hapusDataGuru($id) {
+        $this->db->query("SELECT * FROM data_guru WHERE id = :id");
         $this->db->bind('id', $id);
         $this->db->execute();
-    }
 
-    public function hapusDataGuru($id) {
-        //Cek apakah id data_guru ada dalam database
-        $this->db->query("SELECT id FROM data_guru WHERE id_data_guru = '$id'");
-        $row = $this->db->numRows();
-        //Jika row berisikan nilai 0 maka tidak ada data_Guru yang ingin dihapus dalam database
+        // Ambil jumlah baris hasil query
+        $row = $this->db->rowCount();
+
+        // Jika tidak ada data dengan ID yang diberikan, kembalikan nilai 0
         if ($row == 0) {
             return 0;
         }
 
-        $this->db->query("DELETE FROM data_Guru WHERE id_agama = :id");
+        // Lakukan query DELETE dengan menggunakan parameter
+        $this->db->query("DELETE FROM data_guru WHERE id = :id");
         $this->db->bind('id', $id);
         $this->db->execute();
-        return 1;
+
+        return 1; // Berhasil menghapus data
     }
 }

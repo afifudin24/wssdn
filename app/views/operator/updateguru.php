@@ -64,8 +64,9 @@
 
 <body>
     <h2>Edit Data Guru</h2>
-    <form method="post" action="process_editguru.php" enctype="multipart/form-data">
-        <input type="hidden" name="id_guru" value="<?php echo $data['guru']['id_guru']; ?>">
+    <form method="post" action="<?= BASEURL ?>/operator/updateguru/<?= $data['guru']['id'] ?>"
+        enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo $data['guru']['id']; ?>">
         <label for="nama">Nama:</label>
         <input type="text" name="nama" value="<?php echo $data['guru']['nama']; ?>" required><br>
 
@@ -74,8 +75,12 @@
 
         <label for="jenis_kelamin">Jenis Kelamin:</label>
         <select name="jenis_kelamin" required>
-            <option value="1" <?php echo $data['guru']['jenis_kelamin'] == '1' ? 'selected' : ''; ?>>Perempuan</option>
-            <option value="2" <?php echo $data['guru']['jenis_kelamin'] == '2' ? 'selected' : ''; ?>>Laki-laki</option>
+            <option value="Perempuan" <?php echo $data['guru']['jenis_kelamin'] == 'Perempuan' ? 'selected' : ''; ?>>
+                Perempuan
+            </option>
+            <option value="Laki-laki" <?php echo $data['guru']['jenis_kelamin'] == 'Laki-laki' ? 'selected' : ''; ?>>
+                Laki-laki
+            </option>
         </select><br>
 
         <label for="agama">Agama:</label>

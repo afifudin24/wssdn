@@ -92,16 +92,15 @@
     </center>
 
 
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="<?= BASEURL ?>/operator/updatesiswa/<?= $data['siswa']['id'] ?>"
+        enctype="multipart/form-data">
         <table>
             <tr>
                 <td>Foto</td>
                 <td>
                     <?php
                     if (!empty($data['siswa']['foto'])) {
-                        echo '<img src="' . $data['siswa']['foto'] . '" alt="Foto">';
-                    } else {
-                        echo 'No photo available';
+                        echo "<img src='". BASEURL . "/img/" . $data['siswa']['foto'] . "' class='mt-2' width='100'>";
                     }
                     ?>
                 </td>
@@ -113,7 +112,7 @@
             <tr>
                 <td>Nama</td>
                 <td>
-                    <input type="hidden" name="id_siswa" value="<?php echo $data['siswa']['id_siswa']; ?>">
+                    <input type="hidden" name="id" value="<?php echo $data['siswa']['id']; ?>">
                     <input type="text" name="nama" value="<?php echo $data['siswa']['nama']; ?>"
                         placeholder="Nama lengkap">
                 </td>

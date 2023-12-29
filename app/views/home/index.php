@@ -2,7 +2,7 @@
 
     <!-- FIXED navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" data-aos="fade-down" data-aos-duration="1000">
-        <a class="navbar-brand" href="#"><img src="img/Logo1.png" width="45px" alt=""></a>
+        <a class="navbar-brand" href="#"><img src="<?= BASEURL ?>/img/Logo1.png" width="45px" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

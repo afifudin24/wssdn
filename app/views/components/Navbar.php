@@ -49,7 +49,7 @@
             </div>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link" href="<?= BASEURL ?>/foto">Galeri</a>
+            <a class="nav-link" href="<?= BASEURL ?>/galerifoto">Galeri</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="<?= BASEURL ?>/#">Alumni</a>
@@ -58,8 +58,16 @@
             <a class="nav-link" href="<?= BASEURL ?>/kontak/kontak">Kontak</a>
         </li>
         <ul class="navbar-nav ml-auto">
+            <?php if (SessionManager::checkSession()) : ?>
+            <!-- If user is logged in, display "Logout" link -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?= BASEURL ?>/auth/logout">Logout</a>
+            </li>
+            <?php else : ?>
+            <!-- If user is not logged in, display "Login" link -->
             <li class="nav-item">
                 <a class="nav-link" href="<?= BASEURL ?>/auth/login">Login</a>
             </li>
+            <?php endif; ?>
         </ul>
 </div>

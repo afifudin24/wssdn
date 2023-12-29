@@ -77,4 +77,13 @@ class Auth extends Controller {
 
     }
 
+
+    public function logout()
+    {
+        session_unset();
+        session_destroy();
+        setcookie('PPI-Login', '', time() - 3600 * 24 * 30, '/');
+        header('Location: ' . BASEURL . '/auth/login');
+    }
+
 }

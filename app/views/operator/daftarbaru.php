@@ -84,7 +84,7 @@
     <center>
         <h2>Formulir Pendaftaran siswa</h2>
     </center>
-    <form border="1" method="POST" action="prosesdaftar.php" enctype="multipart/form-data">
+    <form border="1" method="POST" action="<?= BASEURL ?>/operator/new" enctype="multipart/form-data">
         <table>
             <tr>
                 <td>Nama</td>
@@ -99,7 +99,7 @@
             </tr>
             <tr>
                 <td>Jenis Kelamin</td>
-                <td><input type="radio" name="jenis_kelamin" value="P">Pereumpuan</td>
+                <td><input type="radio" name="jenis_kelamin" value="P">Perempuan</td>
                 <td><input type="radio" name="jenis_kelamin" value="L">Laki Laki</td>
             </tr>
             <tr>
@@ -109,7 +109,7 @@
                         <option value="">--- Pilih Agama ---</option>
                         <?php if ($data['agama'] != []) : ?>
                         <?php foreach ($data['agama'] as $k) : ?>
-                        <option value="<?= $k['id'] ?>"><?= $k['nama_agama'] ?></option>
+                        <option value="<?= $k['id_agama'] ?>"><?= $k['nama_agama'] ?></option>
                         <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
@@ -125,11 +125,13 @@
                 <td><input type="file" name="foto" accept="image/*" required></td>
             </tr>
             <tr>
-                <td><input type="Submit" name="Submit" value="Submit">
+                <td><button type="submit" class="btn btn-success" name="submit">Simpan Data</button>
                 </td>
             </tr>
         </table>
     </form>
+
+
 </body>
 
 </html>

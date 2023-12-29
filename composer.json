@@ -1,5 +1,6 @@
 {
     "require": {
-        "phpoffice/phpspreadsheet": "^1.29"
+        "firebase/php-jwt": "^6.10",
+        "mpdf/mpdf": "^6.1"
     }
 }

@@ -65,7 +65,7 @@
 
     <!-- Form to add new data -->
     <h2>Tambah Data Guru</h2>
-    <form method="post" action="">
+    <form method="post" action="<?= BASEURL ?>/operator/newguru">
         <label for="nama">Nama:</label>
         <input type="text" name="nama" required><br>
         <label for="foto">Upload Foto:</label>
@@ -75,8 +75,8 @@
 
         <label for="jenis_kelamin">Jenis Kelamin:</label>
         <select name="jenis_kelamin" required>
-            <option value="1">Perempuan</option>
-            <option value="2">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+            <option value="Laki-laki">Laki-laki</option>
         </select><br>
 
         <label for="agama">Agama:</label>
@@ -85,7 +85,7 @@
                 <option value="">--- Pilih Agama ---</option>
                 <?php if ($data['agama'] != []) : ?>
                 <?php foreach ($data['agama'] as $k) : ?>
-                <option value="<?= $k['id'] ?>"><?= $k['nama_agama'] ?></option>
+                <option value="<?= $k['id_agama'] ?>"><?= $k['nama_agama'] ?></option>
                 <?php endforeach; ?>
                 <?php endif; ?>
             </select>

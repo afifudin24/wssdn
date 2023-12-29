@@ -59,7 +59,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= BASEURL ?>/#">Galeri</a>
+                    <a class="nav-link" href="<?= BASEURL ?>/galerifoto">Galeri</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Alumni</a>

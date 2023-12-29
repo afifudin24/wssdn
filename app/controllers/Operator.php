@@ -30,18 +30,38 @@ class Operator extends Controller
         $this->view('operator/index');
     }
 
-    public function new()
+    public function form_simpan()
     {
         $data['agama'] = $this->agamaModel->getAllAgama();
 
         $this->view('operator/daftarbaru', $data);
     }
 
-    public function newguru()
+    public function new()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            header('Location: ' . BASEURL . '/operator/data-siswa/');
+        }
+        $result = $this->dataSiswaModel->tambahSiswa($_POST);
+        // var_dump($result);
+        header('Location: ' . BASEURL . '/operator/data-siswa/');
+    }
+
+    public function form_simpan_guru()
     {
         $data['agama'] = $this->agamaModel->getAllAgama();
 
         $this->view('operator/tambahdataguru', $data);
+    }
+
+    public function newguru()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            header('Location: ' . BASEURL . '/operator/data-guru/');
+        }
+        $result = $this->dataGuruModel->tambahGuru($_POST);
+        // var_dump($result);
+        header('Location: ' . BASEURL . '/operator/data-guru/');
     }
 
     public function data_guru()
@@ -88,17 +108,10 @@ class Operator extends Controller
         $this->view('operator/data-siswa', $data);
     }
 
-    public function updatesiswa($id = 0)
+    public function form_ubah($id = 0)
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->dataSiswaModel->updatesiswa($id, $_POST);
-            Flasher::setFlash('Siswa berhasil diubah', 'success');
-            header('Location: ' . BASEURL . '/operator/data-siswa');
-        }
-
         if ($id) {
-            $data['title'] = 'Data Siswa';
-            $data['siswa'] = $this->dataSiswaModel->getDataSiswaById($id);
+            $data['siswa'] = $this->dataSiswaModel->getDetailSiswa($id);
             $data['agama'] = $this->agamaModel->getAllAgama();
 
             $this->view('operator/updatesiswa', $data);
@@ -107,21 +120,47 @@ class Operator extends Controller
         }
     }
 
-    public function updateguru($id = 0)
+    public function form_ubah_guru($id = 0)
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->dataGuruModel->updateguru($id, $_POST);
-            Flasher::setFlash('Guru berhasil diubah', 'success');
-            header('Location: ' . BASEURL . '/operator/data-guru');
-        }
-
         if ($id) {
-            $data['title'] = 'Data guru';
-            $data['guru'] = $this->dataGuruModel->getDataGuruById($id);
+            $data['guru'] = $this->dataGuruModel->getDetailGuru($id);
             $data['agama'] = $this->agamaModel->getAllAgama();
 
             $this->view('operator/updateguru', $data);
         } else {
+            header('Location: ' . BASEURL . '/operator/data-guru');
+        }
+    }
+
+    public function updatesiswa($id = 0){
+       
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            header('Location: ' . BASEURL . '/operator/data-siswa');
+        } else if
+        ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          var_dump($id);
+          var_dump($_POST);
+         
+            $this->dataSiswaModel->updateSiswa($id, $_POST);
+            Flasher::setFlash('Siswa berhasil diubah', 'success');
+            header('Location: ' . BASEURL . '/operator/data-siswa');
+        }
+        // $this->siswaModel->tambahSiswa($_POST);
+        // Flasher::setFlash('Berhasil menambahkan siswa', 'success');
+        // header('Location: ' . BASEURL . '/datasiswa');
+    }
+
+    public function updateguru($id = 0)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            header('Location: ' . BASEURL . '/operator/data-guru');
+        } else if
+        ($_SERVER['REQUEST_METHOD'] == 'POST') {
+          var_dump($id);
+          var_dump($_POST);
+         
+            $this->dataGuruModel->updateGuru($id, $_POST);
+            Flasher::setFlash('Guru berhasil diubah', 'success');
             header('Location: ' . BASEURL . '/operator/data-guru');
         }
     }
@@ -131,16 +170,34 @@ class Operator extends Controller
         
         if ($id) {
             $hapus = $this->dataSiswaModel->hapusDataSiswa($id);
-            var_dump($hapus);
-            // if ($hapus == 0) {
-            //     Flasher::setFlash('Siswa tidak ditemukan', 'danger');
-            //     header('Location: ' . BASEURL . '/operator/data-siswa');
-            // } else {
-            //     Flasher::setFlash('Buku berhasil dihapus', 'success');
-            //     header('Location: ' . BASEURL . '/operator/data-siswa');
-            // }
+            // var_dump($hapus);
+            if ($hapus == 0) {
+                Flasher::setFlash('Siswa tidak ditemukan', 'danger');
+                header('Location: ' . BASEURL . '/operator/data-siswa');
+            } else {
+                Flasher::setFlash('Buku berhasil dihapus', 'success');
+                header('Location: ' . BASEURL . '/operator/data-siswa');
+            }
         } else {
             header('Location: ' . BASEURL . '/operator/data-siswa');
+        }
+    }
+
+    public function deleteguru($id = 0)
+    {
+        
+        if ($id) {
+            $hapus = $this->dataGuruModel->hapusDataGuru($id);
+            // var_dump($hapus);
+            if ($hapus == 0) {
+                Flasher::setFlash('Guru tidak ditemukan', 'danger');
+                header('Location: ' . BASEURL . '/operator/data-guru');
+            } else {
+                Flasher::setFlash('Buku berhasil dihapus', 'success');
+                header('Location: ' . BASEURL . '/operator/data-guru');
+            }
+        } else {
+            header('Location: ' . BASEURL . '/operator/data-guru');
         }
     }
 
