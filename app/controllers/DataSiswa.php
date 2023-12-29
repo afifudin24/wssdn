@@ -28,6 +28,7 @@ class DataSiswa extends Controller {
         // $this->view('header', $data);
         $this->view('dataSiswa/index', $data);
         // $this->view('footer');
+        
     }
 
     public function cariSiswa()
@@ -51,8 +52,7 @@ class DataSiswa extends Controller {
     public function form_simpan()
     {
       
-        Flasher::setFlash('Siswa berhasil ditambahkan', 'success');
-        // header('Location: ' . BASEURL . '/dataSiswa/index');
+      
         $this->view('dataSiswa/form-simpan');
     }
 

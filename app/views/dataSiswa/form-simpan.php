@@ -4,6 +4,8 @@
     <title>Aplikasi CRUD dengan PHP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="<?= BASEURL ?>/data/css/bootstrap.min4.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+<!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
 </head>
 
@@ -58,11 +60,11 @@
             </div>
             <hr>
         </div>
-        <button type="button" class="btn btn-primary" id="addFields">Tambah</button>
+        <button type="button" class="btn btn-primary" id="addFields">Tambah <i class="bi bi-chevron-double-down"></i></button>
         <div class="form-group row">
             <div class="col-sm-10 offset-sm-2">
-                <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
-                <a href="index.php" class="btn btn-secondary">Batal</a>
+                <button type="submit" class="btn btn-success" name="submit">Simpan Data</button>
+                <a href="<?= BASEURL ?>/datasiswa/" class="btn btn-secondary">Batal</a>
             </div>
         </div>
         </form>
@@ -117,7 +119,7 @@
             '<div class="col-sm-10">' +
             '<input type="file" class="form-control-file" id="foto[]" name="foto[]">' +
             '</div>' +
-            '</div>';
+            '</div> <hr>';
             ;
         $("#inputFields").append(newField);
     });

@@ -9,8 +9,9 @@
     <!-- Load File bootstrap.min.css yang ada difolder css -->
  
     <link href="<?= BASEURL ?>/data/css/bootstrap.min4.css" rel="stylesheet">
+    <link href="<?= BASEURL ?>/data/css/bootstrap-icons.min.css" rel="stylesheet">
     <link href="<?= BASEURL ?>/data/css/datatables.css" rel="stylesheet">
-    <link href="<?= BASEURL ?>/data/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 <!-- jQuery -->
 
 
@@ -26,6 +27,12 @@
     .align-middle {
         vertical-align: middle !important;
     }
+    /* Tombol Ekspor Excel */
+
+
+
+}
+
     </style>
     
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
@@ -56,11 +63,11 @@
         <?php endif; ?>
     </div>
    
-    <div style="padding: 0 15px;">
+    <div style="padding: 0 15px;" class="mt-3">
     <input type="hidden" id="baseURL" value="<?= BASEURL ?>">
     <!-- Tambahkan button untuk import Excel di halaman -->
 
-        <a class="btn btn-primary" href="<?= BASEURL ?>/dataSiswa/form-simpan">Tambah Siswa</a><br><br>
+        <a class="btn btn-primary" href="<?= BASEURL ?>/dataSiswa/form-simpan">Tambah Siswa <i class="bi bi-plus-circle"></i></a><br><br>
         <div class="row">
             <div class="col-md-6">
             <form action="<?= BASEURL ?>/dataSiswa/importExcel" method="post" enctype="multipart/form-data">
@@ -69,7 +76,7 @@
                     <input type="file" class="custom-file-input" id="inputExcel" name="file_excel" accept=".xls,.xlsx">
                     <label class="custom-file-label" for="inputExcel">Pilih file Excel</label>
                 </div>
-                <div class="input-group-append">
+                <div class="input-group-append ml-2">
                     <button type="submit" class="btn btn-primary" name="import_excel">Import Excel</button>
                 </div>
             </div>
@@ -77,20 +84,9 @@
             </div>
         </div>
        
-        <!-- Buat sebuah div dengan class row -->
-        <div class="row mt-2">
-            <div class="col-xs-12 col-sm-6">
-                <!-- Input Group adalah salah satu komponen yang disediakan bootstrap -->
-                <div class="input-group">
-                    <!-- Buat sebuah textbox dan beri id keyword -->
-                    <input type="text" class="form-control h-6" placeholder="Pencarian..." id="keyword">
-                    <button class="btn btn-warning reset">Reset</button>
-                   
-                </div>
-            </div>
-        </div>
+     
         <br>
-        <h2><i class="bi bi-0-circle-fill"></i></h2>
+
         <!-- Buat sebuah div dengan id="view" yang digunakan untuk menampung data yang ada pada tabel siswa di database -->
         <div class="table-responsive ">
             <table id="dataTable" class="table table-bordered">
@@ -171,26 +167,32 @@ $(document).ready(function() {
         buttons: [
             {
                 extend: 'copyHtml5',
+                className: 'btn btn-warning translate-x-10',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6] // Kolom yang diekspor
-                }
+                    columns: [0,  2, 3, 4, 5] // Kolom yang diekspor
+                },
+             
             },
             {
                 extend: 'excelHtml5',
+                className: 'btn btn-success',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6]
+                    columns: [0, 2, 3, 4, 5]
                 }
             },
             {
                 extend: 'csvHtml5',
+                className: 'btn btn-secondary' ,
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6]
-                }
+                    columns: [0, 2, 3, 4, 5]
+                },
+                
             },
             {
                 extend: 'pdfHtml5',
+                className: 'btn btn-danger' ,
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6]
+                    columns: [0, 2, 3, 4, 5]
                 }
             },
         

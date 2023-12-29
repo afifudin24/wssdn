@@ -1,6 +1,14 @@
 <?php
 
 class Galeri extends Controller {
+    private $galeriModel;
+
+    function __construct()
+    {
+ 
+        $this->galeriModel = $this->model('Galeri_model');
+
+    }
 
     public function index()
     {
